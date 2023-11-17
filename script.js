@@ -357,6 +357,128 @@ function includeHTML() {
           subTabwrappe04.addEventListener("mousemove", dragging04);
           subTabwrappe04.addEventListener("mouseup", dragStop04);
 
+        
+          // 할부 계산기
+        const slider = document.getElementById("myRange");
+        const output = document.getElementById("demo");
+        const pst = document.getElementById("myRange1");
+        const value = document.getElementById("value");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+            }
+
+            
+            value.textContent = pst.value;
+            pst.oninput = function () {
+                value.textContent = this.value;
+            }
+
+            function btnPay() {
+                alert('서비스 준비중 입니다.');
+            }
+
+        // option select 중복가능
+        const selectBoxElements = document.querySelectorAll(".select");
+
+            function toggleSelectBox(selectBox) {
+                selectBox.classList.toggle("active");
+            }
+
+            function selectOption(optionElement) {
+                const selectBox = optionElement.closest(".select");
+                const selectedElement = selectBox.querySelector(".btn-tt");
+                selectedElement.textContent = optionElement.textContent;
+            }
+
+            selectBoxElements.forEach(selectBoxElement => {
+                selectBoxElement.addEventListener("click", function (e) {
+                    const targetElement = e.target;
+                    const isOptionElement = targetElement.classList.contains("option-tt");
+
+                    if (isOptionElement) {
+                        selectOption(targetElement);
+                    }
+
+                    toggleSelectBox(selectBoxElement);
+                });
+            });
+
+            document.addEventListener("click", function (e) {
+                const targetElement = e.target;
+                const isSelect = targetElement.classList.contains("select") || targetElement.closest(".select");
+
+                if (isSelect) {
+                    return;
+                }
+
+                const allSelectBoxElements = document.querySelectorAll(".select");
+
+                allSelectBoxElements.forEach(boxElement => {
+                    boxElement.classList.remove("active");
+                });
+            });
+
+        
+        // auto swiper-slid
+        const swiper02 = new Swiper(".newKiaSwiper", {
+            grabCursor: true,
+            effect: "creative",
+            speed: 900,
+            creativeEffect: {
+                prev: {
+                shadow: true,
+                translate: ["-20%", 0, -1],
+                },
+                next: {
+                translate: ["100%", 0, 0],
+                },
+            },
+            autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+        });
+
+        // event Swiper
+        const swiper03 = new Swiper(".eventthumbsSlider", {
+            rewind: true,
+            spaceBetween: 7,
+            slidesPerView: 4, // 사이즈별로 보여지는거 있는데..
+            parallax: true,
+            speed: 900,
+            freeMode: true,
+            watchSlidesProgress: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+        });
+        const swiper04 = new Swiper(".eventSwiper", {
+            rewind: true,
+            spaceBetween: 7,
+            slidesPerView: 1,
+            breakpoints: {
+                1366: {
+                slidesPerView: 2,//1366px 이상일 때 3개
+                }
+            },
+            parallax: true,
+            speed: 900,
+            thumbs: {
+                swiper: swiper03,
+            },
+            pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+        });
+
 
           // fooer
           // dropdown
@@ -372,7 +494,6 @@ function includeHTML() {
                 optionMenu.classList.remove("active");
             })
           }); 
-
 
         
         }
